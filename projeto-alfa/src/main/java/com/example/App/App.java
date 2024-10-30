@@ -5,7 +5,7 @@ import static spark.Spark.*;
 import java.sql.Connection;
 
 import com.example.DAO.DAO;
-import com.example.Services.userService;
+import com.example.Services.UserService;
 
 public class App {
     public static void main(String[] args) {
@@ -13,15 +13,15 @@ public class App {
         @SuppressWarnings("unused")
         Connection connection = DAO.getConnection();
 
-        userService.createTable();
+        UserService.createTable();
 
-        post("/inserirUsuario", (request, response) -> userService.add(request, response));
-        post("/atualizarUsuario", (request, response) -> userService.update(request, response));
-        post("/removerUsuario", (request, response) -> userService.delete(request, response));
+        post("/inserirUsuario", (request, response) -> UserService.add(request, response));
+        post("/atualizarUsuario", (request, response) -> UserService.update(request, response));
+        post("/removerUsuario", (request, response) -> UserService.delete(request, response));
 
         get("/getAll", (request, response) -> {
-            userService.getAll(request, response);
-            response.redirect("http://youtube.com");
+            UserService.getAll(request, response);
+            response.redirect("*");
             return "";
         });
     }

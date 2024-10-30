@@ -1,9 +1,12 @@
+var user = document.getElementById("user")
 
-fetch("http://localhost:4567/getAll")
-.then(res => res.json())
-.then(data => {
-    var users = document.getElementById("userTable")
-    users.innerHTML += data
-})
+function setLogin() {
+    if (localStorage.length < 1) {
+        localStorage.setItem("user", user.value)
+    } else {
+        localStorage.clear
+        localStorage.setItem("user", user.value)
+    }
+}
 
-// Erro de acesso
+console.log(localStorage)
