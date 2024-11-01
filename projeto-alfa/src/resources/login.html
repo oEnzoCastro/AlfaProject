@@ -72,7 +72,7 @@
 
       <div style="background: linear-gradient(90deg, rgba(var(--bs-primary-rgb), 50%) 0%, rgba(var(--bs-primary-rgb), 25%) 50%, rgba(var(--bs-primary-rgb), 50%) 100%); padding: 50px; margin: 20px 200px; overflow: hidden;">
 
-          <form class="d-flex justify-content-center" action="http://localhost:4567/hello" method="post">
+          <form class="d-flex justify-content-center" action="http://localhost:4567/loginUsuario" method="post">
               <div class="" style="display: flex; justify-content: center; align-items: center;  width: 100%;">
                   <div class="card text-white" style="border-radius: 1rem; background-color: rgba(var(--bs-primary-rgb), 75%); width: 600px;">
                       <div class="card-body p-5 text-center">
@@ -83,12 +83,12 @@
                               <p class="text-white mb-5">Insira seu Usuário e sua Senha</p>
                               
                               <div data-mdb-input-init="" class="form-outline form-white mb-4" data-mdb-input-initialized="true">
-                                  <input name="user" type="text" id="user" class="form-control form-control-lg">
+                                  <input name="user" type="text" id="user" class="form-control form-control-lg" required>
                                   <label class="form-label" for="user" style="margin-left: 0px;">Usuário</label>
                                   <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 40px;"></div><div class="form-notch-trailing"></div></div></div>
                                   
                                   <div data-mdb-input-init="" class="form-outline form-white mb-4" data-mdb-input-initialized="true">
-                                      <input name="password" type="password" id="password" class="form-control form-control-lg">
+                                      <input name="password" type="password" id="password" class="form-control form-control-lg" required>
                                       <label class="form-label" for="password" style="margin-left: 0px;">Senha</label>
                                       <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64.8px;"></div><div class="form-notch-trailing"></div></div></div>
                                       
