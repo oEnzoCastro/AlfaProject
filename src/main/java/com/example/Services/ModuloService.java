@@ -32,7 +32,7 @@ public class ModuloService {
             
         ModuloDAO.delete(id);
 
-        response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
+        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
 
         return "";
     }
@@ -44,7 +44,7 @@ public class ModuloService {
             
         ModuloDAO.update(id, user);
 
-        response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
+        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
 
         return "";
 
