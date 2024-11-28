@@ -35,7 +35,7 @@ async function getUsers() {
     
     try {
         
-        await fetch('http://localhost:4567/getAll', {method: 'POST'})
+        await fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getAll', {method: 'POST'})
         .then(res => res.json())
         .then(data => {
 
@@ -80,7 +80,7 @@ async function getModulos() {
     
     try {
         
-        await fetch('http://localhost:4567/getAllModulos', {method: 'POST'})
+        await fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getAllModulos', {method: 'POST'})
         .then(res => res.json())
         .then(data => {
 
@@ -142,7 +142,7 @@ function getAulas(idModulo) {
     
     try {
         
-        fetch('http://localhost:4567/getAulas', {
+        fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getAulas', {
             method: 'POST',
             body: params
         })
