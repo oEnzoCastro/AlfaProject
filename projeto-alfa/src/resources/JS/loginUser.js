@@ -7,7 +7,7 @@ form.addEventListener('submit', event => {
     const formData = new FormData(form);
     const data = new URLSearchParams(formData);
     
-    fetch('http://https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/loginUsuario', {
+    fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/loginUsuario', {
         method: 'POST',
         body: data
     })
