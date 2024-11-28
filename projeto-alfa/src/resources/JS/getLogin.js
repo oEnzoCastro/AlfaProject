@@ -8,7 +8,7 @@ const data = new URLSearchParams(localStorage);
 
 const username = document.getElementById('username')
 
-fetch('http://https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getUsuario', {
+fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getUsuario', {
     method: 'POST',
     body: data
 })
