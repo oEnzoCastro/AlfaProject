@@ -68,5 +68,11 @@ public class App {
             response.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500"); // Libera acesso ao JS
             return ImageAnalysisDAO.get(request, response);
         });
+        post("/atualizarAula", (request, response) -> {
+            response.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500"); // Libera acesso ao JS
+            return AulaService.update(request, response);
+        });
+    
+    
     }
 }

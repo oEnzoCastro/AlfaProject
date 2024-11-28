@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class AulaDAO {
 
-        public static boolean createTable() {
+    public static boolean createTable() {
 
         boolean status = false;
 
         try {
 
             Statement st = DAO.connection.createStatement();
-            String sql = "CREATE TABLE aulas(numAula serial primary key, id_aula VARCHAR(50), nomeAula VARCHAR(50), id_modulo INT, CONSTRAINT moduloAula FOREIGN KEY (id_modulo) REFERENCES modulos(id) , checkAula BOOLEAN);";
+            String sql = "CREATE TABLE aulas(numAula serial primary key, id_aula VARCHAR(150), nomeAula VARCHAR(50), id_modulo INT, CONSTRAINT moduloAula FOREIGN KEY (id_modulo) REFERENCES modulos(id) , checkAula BOOLEAN);";
 
             st.executeUpdate(sql);
 
@@ -29,48 +29,56 @@ public class AulaDAO {
         return status;
     }
 
-    public static boolean insertAula(String aulaLink, String aulaName, int moduloAula, boolean checkAula) {
-        
-        boolean status = false;
-        
-        try {
+    public static boolean add(String aulaLink, String aulaName, int moduloAula, boolean checkAula) {
+
+        String sql = "INSERT INTO aulas (id_aula, nomeAula, id_modulo, checkAula) VALUES (?, ?, ?, ?);";
+
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, aulaLink);
+            preparedStatement.setString(2, aulaName);
+            preparedStatement.setInt(3, moduloAula);
+            preparedStatement.setBoolean(4, checkAula);
+
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            @SuppressWarnings("unused")
+            boolean execute = preparedStatement.execute();
+
+            System.out.println("AULA INSERIDA!");
+
+            return true;
             
-            Statement st = DAO.connection.createStatement();
-            String sql = "INSERT INTO aulas (id_aula, nomeAula, id_modulo, checkAula) VALUES ('" + aulaLink + "', '" + aulaName + "', '" + moduloAula + "', '" + checkAula + "');";
-            
-            st.executeUpdate(sql);
-            
-            st.close();
-            
-            System.out.println("Aula inserida!");
-            status = true;
         } catch (Exception e) {
-            System.err.println("Aula não inserida! = " + e.getMessage());
+
+            System.out.println("AULA NÃO INSERIDA!" + e);
+
+            return false;
         }
 
-        return status;
     }
 
     public static boolean deleteAula(int id) {
 
-        boolean status = false;
-        
-        try {
-            
-            Statement st = DAO.connection.createStatement();
-            String sql = "DELETE FROM aulas WHERE numaula = " + id + ";";
-            
-            st.executeUpdate(sql);
-            
-            st.close();
-            
-            System.out.println("Aula Deletada!");
-            status = true;
-        } catch (Exception e) {
-            System.err.println("Aula não deletada! = " + e.getMessage());
-        }
+        String sql = "DELETE FROM aulas WHERE numaula = ?;";
 
-        return status;
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id);
+
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            @SuppressWarnings("unused")
+            boolean execute = preparedStatement.execute();
+
+            System.out.println("AULA DELETADA!");
+
+            return true;
+            
+        } catch (Exception e) {
+
+            System.out.println("AULA NÃO DELETADA!" + e);
+
+            return false;
+        }
 
     }
 
@@ -97,8 +105,6 @@ public class AulaDAO {
     }
 
     public static String showAulas(int modulo) {
-
-        boolean status = false;
         
         String sql = "SELECT * FROM public.aulas WHERE id_modulo=? ORDER BY numaula;";
         try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
@@ -107,12 +113,12 @@ public class AulaDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            String id, name;
+            String id, name, numeroAula;
 
             ArrayList<String> arrayList = new ArrayList<String>();
 
             while (resultSet.next()) {
-                
+
                 /*
                  * System.out.print("'Id:" + resultSet.getString("id_user") + "' ");
                  * System.out.print("'User:" + resultSet.getString("name") + "' ");
@@ -122,8 +128,9 @@ public class AulaDAO {
 
                 id = resultSet.getString("id_aula");
                 name = resultSet.getString("nomeAula");
+                numeroAula = resultSet.getString("numAula");
 
-                arrayList.add("{\"id\": \"" + id + "\", \"name\": \"" + name + "\"}");
+                arrayList.add("{\"numAula\": \"" + numeroAula + "\", \"id\": \"" + id + "\", \"name\": \"" + name + "\"}");
             }
 
             //System.out.println(arrayList);
@@ -137,42 +144,77 @@ public class AulaDAO {
 
     }
 
-    public static boolean findUser(String user, String password) {
-
-        boolean status = false;
-        ResultSet resultSet = null;
+    public static boolean update(int id, String numAula, String name, String linkYoutube) {
         
-        try {
+        String sql = "";
+        if (!linkYoutube.equals("")) {
+            sql = "UPDATE aulas SET id_aula=? WHERE numAula=?;";
+            try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
             
-            Statement st = DAO.connection.createStatement();
-            String sql = "SELECT * FROM public.users;";
-            
-            ArrayList<String> arrayList = new ArrayList<String>();
-
-            resultSet = st.executeQuery(sql);
-
-            while (resultSet.next()) {
-                arrayList.add(resultSet.getString("name") + resultSet.getString("password"));
-            }
-
-            System.out.println(arrayList + " " + user + " " + password);
-            
-            if (arrayList.contains(" " + user + password)) {
-                System.out.println("Usuário Encontrado!");
-
-                return true;
-
-            } else {
-                System.out.println("Usuário Não Encontrado!");
-
-                return false;
-
-            }
-        } catch (Exception e) {
-            System.err.println("ERRO DETECTADO NA LEITURA DE DADOS! = " + e.getMessage());
+                preparedStatement.setString(1, linkYoutube);
+                preparedStatement.setInt(2, id);
+                
+                //ResultSet resultSet = preparedStatement.executeQuery();
+                @SuppressWarnings("unused")
+                boolean execute = preparedStatement.execute();
+    
+                
+                System.out.println("MODULO Atualizado!");
+                
+            } catch (Exception e) {
+    
+                System.out.println("MODULO NÃO Atualizado!" + e);
+    
+            } 
         }
 
-        return status;
+        if (!name.equals("")) {
+            sql = "UPDATE aulas SET nomeAula=? WHERE numAula=?;";
+            try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+            
+                preparedStatement.setString(1, name);
+                preparedStatement.setInt(2, id);
+                
+                //ResultSet resultSet = preparedStatement.executeQuery();
+                @SuppressWarnings("unused")
+                boolean execute = preparedStatement.execute();
+    
+                
+                System.out.println("MODULO Atualizado!");
+                
+            } catch (Exception e) {
+    
+                System.out.println("MODULO NÃO Atualizado!" + e);
+    
+            } 
+        }
+
+        if (!numAula.equals("")) {
+            sql = "UPDATE aulas SET numAula=? WHERE numAula=?;";
+            try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+            
+                preparedStatement.setInt(1, Integer.parseInt(numAula));
+                preparedStatement.setInt(2, id);
+                
+                //ResultSet resultSet = preparedStatement.executeQuery();
+                @SuppressWarnings("unused")
+                boolean execute = preparedStatement.execute();
+    
+                
+                System.out.println("MODULO Atualizado!");
+                
+            } catch (Exception e) {
+    
+                System.out.println("MODULO NÃO Atualizado!" + e);
+    
+            } 
+        }
+
+        if (sql != "") {
+            return true;
+        }
+
+        return false;
 
     }
 

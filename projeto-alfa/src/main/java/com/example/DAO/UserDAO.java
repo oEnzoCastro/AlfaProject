@@ -1,5 +1,8 @@
 package com.example.DAO;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,17 +29,37 @@ public class UserDAO {
         }
     }
 
-    public static void add(String user, String email, String password) {
+    public static String MD5(String senha) {
 
+        MessageDigest messageDigest;
         try {
 
-            Statement st = DAO.connection.createStatement();
-            String sql = "INSERT INTO users (name, email, password) VALUES ('" + user + "', '" + email + "', '"
-                    + password + "');";
+            messageDigest = MessageDigest.getInstance("MD5");
 
-            st.executeUpdate(sql);
+            messageDigest.update(senha.getBytes(), 0, senha.length());
 
-            st.close();
+            return new BigInteger(1,messageDigest.digest()).toString(16);
+
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("Erro na criptografia: " + e);
+        }
+
+        return senha;
+    }
+
+    public static void add(String user, String email, String password) {
+
+        String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?);";
+
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)){
+
+            preparedStatement.setString(1, user);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, MD5(password));
+
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            @SuppressWarnings("unused")
+            boolean execute = preparedStatement.execute();
 
             System.out.println("Usuario inserido!");
 
@@ -50,14 +73,15 @@ public class UserDAO {
 
     public static void delete(int id) {
 
-        try {
+        String sql = "DELETE FROM users WHERE id_user=?;";
 
-            Statement st = DAO.connection.createStatement();
-            String sql = "DELETE FROM users WHERE id_user = " + id + ";";
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
 
-            st.executeUpdate(sql);
+            preparedStatement.setInt(1, id);
 
-            st.close();
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            @SuppressWarnings("unused")
+            boolean execute = preparedStatement.execute();
 
             System.out.println("Usuario Deletado!");
 
@@ -67,67 +91,93 @@ public class UserDAO {
 
     }
 
-    public static void update(int id, String user, String email, String password) {
+    public static boolean update(int id, String user, String email, String password) {
+        String sql = "";
+        if (!user.equals("")) {
+            sql = "UPDATE users SET name=? WHERE id_user=?;";
 
-        try {
-
-            Statement st = DAO.connection.createStatement();
-            String sql;
-
-            if (!user.equals("")) {
-                sql = "UPDATE users SET name='" + user + "' WHERE id_user=" + id + ";";
-                st.executeUpdate(sql);
+            try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+            
+                preparedStatement.setString(1, user);
+                preparedStatement.setInt(2, id);
+                
+                //ResultSet resultSet = preparedStatement.executeQuery();
+                @SuppressWarnings("unused")
+                boolean execute = preparedStatement.execute();
+    
+                System.out.println("Usuario Nome Atualizado!");
+            } catch (Exception e) {
+                System.err.println("Usuario Nome não Atualizado! = " + e.getMessage());
             }
-            if (!email.equals("")) {
-                sql = "UPDATE users SET email='" + email + "' WHERE id_user=" + id + ";";
-                st.executeUpdate(sql);
-            }
-            if (!password.equals("")) {
-                sql = "UPDATE users SET password='" + password + "' WHERE id_user=" + id + ";";
-                st.executeUpdate(sql);
-            }
 
-            st.close();
-
-            System.out.println("Usuario Atualizado!");
-        } catch (Exception e) {
-            System.err.println("Usuario não Atualizado! = " + e.getMessage());
         }
+        if (!email.equals("")) {
+            sql = "UPDATE users SET email=? WHERE id_user=?;";
+
+            try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+            
+                preparedStatement.setString(1, email);
+                preparedStatement.setInt(2, id);
+                
+                //ResultSet resultSet = preparedStatement.executeQuery();
+                @SuppressWarnings("unused")
+                boolean execute = preparedStatement.execute();
+    
+                System.out.println("Usuario Email Atualizado!");
+            } catch (Exception e) {
+                System.err.println("Usuario Email não Atualizado! = " + e.getMessage());
+            }
+
+        }
+        if (!password.equals("")) {
+            sql = "UPDATE users SET password=? WHERE id_user=?;";
+
+            try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+            
+                preparedStatement.setString(1, MD5(password));
+                preparedStatement.setInt(2, id);
+                
+                //ResultSet resultSet = preparedStatement.executeQuery();
+                @SuppressWarnings("unused")
+                boolean execute = preparedStatement.execute();
+    
+                System.out.println("Usuario Senha Atualizado!");
+            } catch (Exception e) {
+                System.err.println("Usuario Senha não Atualizado! = " + e.getMessage());
+            }
+
+        }
+
+        if (sql != "") {
+            return true;
+        }
+
+        return false;
 
     }
 
     public static String getAll() {
 
-        ResultSet resultSet = null;
+        String sql = "SELECT * FROM public.users ORDER BY id_user;";
 
-        try {
-
-            Statement st = DAO.connection.createStatement();
-            String sql = "SELECT * FROM public.users ORDER BY id_user;";
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
 
             String id, user, email, password;
 
             ArrayList<String> arrayList = new ArrayList<String>();
 
-            resultSet = st.executeQuery(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                /*
-                 * System.out.print("'Id:" + resultSet.getString("id_user") + "' ");
-                 * System.out.print("'User:" + resultSet.getString("name") + "' ");
-                 * System.out.print("'Email:" + resultSet.getString("email") + "' ");
-                 * System.out.println("'Passoword:" + resultSet.getString("password") + "' ");
-                 */
+
                 id = resultSet.getString("id_user");
                 user = resultSet.getString("name");
                 email = resultSet.getString("email");
                 password = resultSet.getString("password");
 
-                arrayList.add("{\"id\": \"" + id + "\", \"user\": \"" + user + "\", \"email\": \"" + email
-                        + "\", \"password\": \"" + password + "\"}");
+                arrayList.add("{\"id\": \"" + id + "\", \"user\": \"" + user + "\", \"email\": \"" + email + "\", \"password\": \"" + password + "\"}");
             }
 
-            st.close();
             return arrayList.toString();
 
         } catch (Exception e) {
@@ -153,7 +203,7 @@ public class UserDAO {
                 System.out.println(user + " " + password);
                 System.out.println(resultSet.getString("name") + " " + resultSet.getString("password"));
 
-                if (resultSet.getString("password").equals(password)) { // Confere se a senha (BD) é igual a senha
+                if (resultSet.getString("password").equals(MD5(password))) { // Confere se a senha (BD) é igual a senha
                                                                         // (Input)
                     System.out.println("SENHA CORRETA");
                     return resultSet.getInt("id_user");

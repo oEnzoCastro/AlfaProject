@@ -50,44 +50,54 @@ public class ModuloDAO {
 
     }
 
-    public static void delete(int id) {
+    public static boolean delete(int id) {
 
-        try {
+        String sql = "DELETE FROM modulos WHERE id=?;";
 
-            Statement st = DAO.connection.createStatement();
-            String sql = "DELETE FROM modulos WHERE id = " + id + ";";
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)){
 
-            st.executeUpdate(sql);
+            preparedStatement.setInt(1, id);
 
-            st.close();
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            @SuppressWarnings("unused")
+            boolean execute = preparedStatement.execute();
 
-            System.out.println("Usuario Deletado!");
+            System.out.println("Modulo Deletado!");
+
+            return true;
+
 
         } catch (Exception e) {
-            System.err.println("Usuario não deletado! = " + e.getMessage());
+            System.err.println("Modulo não deletado! = " + e.getMessage());
+            return false;
         }
 
     }
 
     public static void update(int id, String user) {
 
-        try {
-
-            Statement st = DAO.connection.createStatement();
-            String sql;
-
-            if (!user.equals("")) {
-                sql = "UPDATE modulos SET name='" + user + "' WHERE id=" + id + ";";
-                st.executeUpdate(sql);
-            }
-
-            st.close();
-
-            System.out.println("Modulo Atualizado!");
-        } catch (Exception e) {
-            System.err.println("Modulo não Atualizado! = " + e.getMessage());
+        String sql = "";
+        if (!user.equals("")) {
+            sql = "UPDATE modulos SET name= ? WHERE id=?;";
         }
+        
+        try (PreparedStatement preparedStatement = DAO.connection.prepareStatement(sql)) {
+            
+            preparedStatement.setString(1, user);
+            preparedStatement.setInt(2, id);
+            
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            @SuppressWarnings("unused")
+            boolean execute = preparedStatement.execute();
 
+            
+            System.out.println("MODULO Atualizado!");
+            
+        } catch (Exception e) {
+
+            System.out.println("MODULO NÃO Atualizado!" + e);
+
+        }
     }
 
     public static String getAll() {

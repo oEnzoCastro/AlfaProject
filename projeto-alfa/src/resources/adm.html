@@ -52,7 +52,7 @@
     
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="display: flex; align-items: center;">
               <li style="display: flex; align-items: center; justify-content: center;"><a href="index.html" class="nav-link px-2" style="color: white; font-weight: 600;">Home</a></li>
-              <li style="display: flex; align-items: center; justify-content: center;"><a href="aulas.html" class="nav-link px-2" style="color: white;">Aulas</a></li>
+              <li style="display: flex; align-items: center; justify-content: center;"><a href="modulos.html" class="nav-link px-2" style="color: white;">Aulas</a></li>
               <li style="display: flex; align-items: center; justify-content: center;"><a href="login.html" class="nav-link px-2" style="color: white;">Login</a></li>
             </ul>
     
@@ -71,7 +71,7 @@
                   <span class="visually-hidden" role="status">Loading...</span>
                 </h4></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><button class="dropdown-item" onclick="openProfile()">Profile</button></li>
+                <li><a class="dropdown-item" href="perfil.html">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item" onclick="logout()">Sair</button></li>
               </ul>
@@ -79,6 +79,7 @@
           </div>
         </div>
       </header>
+      
       <div style="display: flex; justify-content: center;">
       <a href="perfil.html" class="btn btn-primary">
         Perfil Usuário
@@ -508,7 +509,8 @@
                 <table class="table table-sm">
                   <thead>
                     <tr>
-                      <th scope="col" >#Id_Aula</th>
+                      <th scope="col" >NumeroAula</th>
+                      <th scope="col" >Id_Aula</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Action</th>
                     </tr>
@@ -554,6 +556,61 @@
             </div>
             <div class="modal-footer">
               <input name="addAulaId" id="addAulaId" type="hidden">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Adicionar Aula</button>
+            </div>
+          </form>
+          </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteAula" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Deletar Modulo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="http://localhost:4567/removerAula" method="post">
+          <div class="modal-body">
+              <div class="mb-3">
+                <h2>Essa ação é irreversível, está certo disso?</h2>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input name="deleteIdAula" id="deleteIdAula" type="hidden">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-danger">Deletar Modulo</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="editAula" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Editar Aula</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="http://localhost:4567/atualizarAula" method="post">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="aulaNum" class="form-label">Numero da Aula:</label>
+                <input name="aulaNum" type="text" class="form-control" id="aulaNum" placeholder="Número da Aula">
+              </div>
+              <div class="mb-3">
+                <label for="aulaName" class="form-label">Nome:</label>
+                <input name="aulaName" type="text" class="form-control" id="aulaName" placeholder="Nome da Aula">
+              </div>
+              <div class="mb-3">
+                <label for="aulaLink" class="form-label">Link Youtube:</label>
+                <input name="aulaLink" type="text" class="form-control" id="aulaLink" placeholder="https://www.youtube.com/watch?v=...">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input name="updateAulaId" id="updateAulaId" type="hidden">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
               <button type="submit" class="btn btn-primary">Adicionar Aula</button>
             </div>

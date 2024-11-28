@@ -20,21 +20,15 @@ public class AulaService {
         int moduloAula = Integer.parseInt(request.queryParams("addAulaId"));
         Boolean checkAula = false;
         
-/* 
-        if (request.url() == "http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html") {
-            response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
-        } else {
-            response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/perfil.html");
-        }
-*/
+        response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
 
-        return AulaDAO.insertAula(aulaLink, aulaName, moduloAula, checkAula);
+        return AulaDAO.add(aulaLink, aulaName, moduloAula, checkAula);
 
     }
 
     public static Object delete(Request request, Response response) {
 
-        int idAula = Integer.parseInt(request.queryParams("id"));
+        int idAula = Integer.parseInt(request.queryParams("deleteIdAula"));
         
 /* 
         if (request.url() == "http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html") {
@@ -52,10 +46,25 @@ public class AulaService {
         
         int id = Integer.parseInt(request.queryParams("moduloId"));
         
-        System.out.println(id);
         return AulaDAO.showAulas(id);
 
     }
+
+    public static Object update(Request request, Response response) {
+
+        int id = Integer.parseInt(request.queryParams("updateAulaId"));
+        String name = request.queryParams("aulaName");
+        String linkYoutube = request.queryParams("aulaLink");
+        String numAula = request.queryParams("aulaNum");
+            
+        AulaDAO.update(id, numAula, name, linkYoutube);
+
+        response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
+
+        return "";
+
+    }
+
 }
 
 

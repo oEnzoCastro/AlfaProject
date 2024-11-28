@@ -52,7 +52,7 @@
     
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="display: flex; align-items: center;">
               <li style="display: flex; align-items: center; justify-content: center;"><a href="index.html" class="nav-link px-2" style="color: white; font-weight: 600;">Home</a></li>
-              <li style="display: flex; align-items: center; justify-content: center;"><a href="aulas.html" class="nav-link px-2" style="color: white;">Aulas</a></li>
+              <li style="display: flex; align-items: center; justify-content: center;"><a href="modulos.html" class="nav-link px-2" style="color: white;">Aulas</a></li>
               <li style="display: flex; align-items: center; justify-content: center;"><a href="login.html" class="nav-link px-2" style="color: white;">Login</a></li>
             </ul>
     
@@ -81,30 +81,27 @@
       </header>
 
       <div id="selectModulo" class="album py-5 bg-body-tertiary">
+        <div class="btnBackContainer" style="display: flex; justify-content: center; margin-bottom: 2%;">
+          <button id="backBtn" class="btn btn-primary d-inline-flex align-items-center" type="button" style="display: flex; justify-content: center; align-items:center; gap: 10px; font-size: 1rem; font-weight: 500;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+            </svg>
+            Voltar
+          </button>
+        </div>
         <div class="container">
     
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div id="moduloContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-            <div class="col">
-              <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-body-secondary">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- Modulo Card -->
+
 
           </div>
           
         </div>
       </div>
+
+      
 
       <footer class="footer mt-auto py-3" style="background-color: rgba(var(--bs-primary-rgb), 75%); color: white;">
             <ul class="nav justify-content-center pb-3 mb-3">
@@ -113,6 +110,71 @@
             </ul>
             <p class="text-center">© 2024 ProjetoAlfa</p>
       </footer>
+
+    <script>
+
+        document.getElementById("backBtn").addEventListener("click", function(){
+          history.back();
+        });
+
+        const url = new URLSearchParams(window.location.search)
+        const idModulo = url.get('idModulo')
+
+        console.log(idModulo)
+
+        getAulas(idModulo)
+        function getAulas(idModulo) {
+    
+        const formData = new FormData();
+
+        const params = new URLSearchParams();
+
+        formData.append('moduloId', idModulo)
+
+        params.append('moduloId', idModulo)
+
+        const modulosTable = document.getElementById('moduloContainer')
+
+        
+        try {
+            
+            fetch('http://localhost:4567/getAulas', {
+                method: 'POST',
+                body: params
+            })
+            .then(res => res.json())
+            .then(data => {
+                
+                console.log(data)
+
+                data.forEach(element => {
+                console.log(element)
+                modulosTable.innerHTML += `
+
+                <form class="col" action="player.html" method="get">
+                <div id="${element.id}" style="text-decoration: none;" class="card shadow-sm" >
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: ${element.name}" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="rgba(var(--bs-primary-rgb),25%)"></rect><text x="50%" y="50%" fill="var(--bs-primary)" dy=".5em" dx="-2em" style="font-size: 2rem; font-weight: bold; text-shadow: -1px 1px 0 #ffffff, 1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px 1px 0 #ffffff;">${element.name}</text></svg>
+                    <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <input type="hidden" name="v" value="${element.id}">
+                        <div class="btn-group">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Assistir</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </form>
+
+                `
+        });
+
+            })
+
+        } catch (error) {
+            console.error(error)
+        }
+}
+    </script>
 
     <script src="./JS/User.js"></script>
  
