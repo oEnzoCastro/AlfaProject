@@ -1,0 +1,9 @@
+com\example\DAO\DAO.class
+com\example\DAO\ImageAnalysisDAO.class
+com\example\Services\UserService.class
+com\example\DAO\UserDAO.class
+com\example\Services\ModuloService.class
+com\example\DAO\ModuloDAO.class
+com\example\Services\AulaService.class
+com\example\App\App.class
+com\example\DAO\AulaDAO.class
