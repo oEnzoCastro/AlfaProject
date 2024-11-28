@@ -20,7 +20,7 @@ public class AulaService {
         int moduloAula = Integer.parseInt(request.queryParams("addAulaId"));
         Boolean checkAula = false;
         
-        response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
+        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
 
         return AulaDAO.add(aulaLink, aulaName, moduloAula, checkAula);
 
@@ -59,7 +59,7 @@ public class AulaService {
             
         AulaDAO.update(id, numAula, name, linkYoutube);
 
-        response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
+        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
 
         return "";
 
