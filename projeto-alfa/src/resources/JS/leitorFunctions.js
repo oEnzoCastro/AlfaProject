@@ -45,7 +45,7 @@ form.addEventListener('submit', event => {
             imageData.append('imageURL', data.data.url)
             console.log(data.data.url)
             
-            fetch('http://localhost:4567/showImgText', {
+            fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/showImgText', {
                 method: 'POST',
                 body: imageData
             })
