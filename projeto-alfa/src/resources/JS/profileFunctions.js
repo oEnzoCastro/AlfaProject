@@ -12,7 +12,7 @@ form.addEventListener('submit', event => {
     const formData = new FormData(form);
     const data = new URLSearchParams(formData);
     
-    fetch('http://localhost:4567/atualizarUsuario', {
+    fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/atualizarUsuario', {
         method: 'POST', 
         body: data
     })
@@ -21,7 +21,7 @@ form.addEventListener('submit', event => {
     window.location.href = "./perfil.html"
 });
 
-fetch('http://localhost:4567/getUsuario', {
+fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getUsuario', {
     method: 'POST',
     body: data
 })
@@ -37,7 +37,7 @@ function showPassword() {
     const btn = document.getElementById('showPassword')
     if (isPassword == false) {
 
-        fetch('http://localhost:4567/getUsuario', {
+        fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getUsuario', {
             method: 'POST',
             body: data
         })
@@ -57,7 +57,7 @@ function showPassword() {
         isPassword = true
     } else {
 
-        fetch('http://localhost:4567/getUsuario', {
+        fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getUsuario', {
             method: 'POST',
             body: data
         })
@@ -77,7 +77,7 @@ function showPassword() {
 }
 
 function openProfile() {
-    fetch('http://localhost:4567/getUsuario', {
+    fetch('https://6748b2c02e8d244a8033b552--projeto-alfa.netlify.app:4567/getUsuario', {
         method: 'POST',
         body: data
     })
