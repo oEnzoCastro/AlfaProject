@@ -22,10 +22,10 @@ public class UserService {
             
         UserDAO.add(user, email, password);
 
-        if (request.url() == "https://projeto-alfa.netlify.app/src/resources/adm.html") {
-            response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
+        if (request.url() == "http://localhost:5500/projeto-alfa/src/resources/adm.html") {
+            response.redirect("http://localhost:5500/projeto-alfa/src/resources/adm.html");
         } else {
-            response.redirect("https://projeto-alfa.netlify.app/src/resources/login.html");
+            response.redirect("http://localhost:5500/projeto-alfa/src/resources/login.html");
         }
 
         return "";
@@ -38,7 +38,7 @@ public class UserService {
             
         UserDAO.delete(id);
 
-        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
+        response.redirect("http://localhost:5500/projeto-alfa/src/resources/adm.html");
 
         return "";
     }
@@ -52,7 +52,7 @@ public class UserService {
             
         UserDAO.update(id, user, email, password);
 
-        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
+        response.redirect("http://localhost:5500/projeto-alfa/src/resources/adm.html");
 
         return "";
 

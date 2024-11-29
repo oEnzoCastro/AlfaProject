@@ -53,6 +53,7 @@ form.addEventListener('submit', event => {
             .then(dataIMG => {
                 console.log(imageData)
                 resultText.innerHTML = dataIMG
+                
                 console.log(dataIMG)
             })
             

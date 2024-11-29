@@ -20,24 +20,28 @@ public class App {
         AulaService.createTable(); // Cria Table Aula
         ModuloService.createTable(); // Cria Table Modulo
 
+        // CORS
+        before((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*"); // Change * to your frontend domain for production
+            response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            response.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
+            response.header("Access-Control-Allow-Credentials", "true");
+        });
+
         // Usuário
 
         post("/inserirUsuario", (request, response) -> UserService.add(request, response));
         post("/atualizarUsuario", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return UserService.update(request, response);
         });
         post("/removerUsuario", (request, response) -> UserService.delete(request, response));
         post("/loginUsuario", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return UserService.login(request, response);
         });
         post("/getUsuario", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return UserService.get(request, response);
         });
         post("/getAll", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return UserService.getAll(request, response);
         });
 
@@ -45,11 +49,9 @@ public class App {
 
         post("/inserirModulo", (request, response) -> ModuloService.add(request, response));
         post("/atualizarModulo", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return ModuloService.update(request, response);
         });
         post("/getAllModulos", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return ModuloService.getAll(request, response);
         });
         post("/removerModulo", (request, response) -> ModuloService.delete(request, response));
@@ -57,20 +59,15 @@ public class App {
         // Aulas
 
         post("/getAulas", (request, response) -> {
-
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
-
             return AulaService.getAulas(request, response);
         });
         post("/inserirAula", (request, response) -> AulaService.add(request, response));
         post("/removerAula", (request, response) -> AulaService.delete(request, response));
-        post("/showImgText", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
-            return ImageAnalysisDAO.get(request, response);
-        });
         post("/atualizarAula", (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "https://projeto-alfa.netlify.app"); // Libera acesso ao JS
             return AulaService.update(request, response);
+        });
+        post("/showImgText", (request, response) -> {
+            return ImageAnalysisDAO.get(request, response);
         });
     
     

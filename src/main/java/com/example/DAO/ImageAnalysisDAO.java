@@ -65,7 +65,7 @@ public class ImageAnalysisDAO {
         for (String string : arrayList) {
 
             System.out.println(string);
-            text += "<p id=\"line_" + i + "\">" + string + "</p>";
+            text += "<button onclick=\"playAudio(line_"+ i +")\"><p id=\"line_" + i + "\">" + string + "</p></button>";
 
             i++;
         }

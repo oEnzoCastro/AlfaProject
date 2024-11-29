@@ -80,37 +80,37 @@
         </div>
       </header>
 
-      <div style="display: flex;">
+      <div style="display: flex; justify-content: center; align-items: center;">
 
-        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-          <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Painel de Controle</h1>
-            <div class="row align-items-md-stretch">
-              <div class="col-md-6">
-                <div class="h-100 p-5 text-bg-dark rounded-3">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3" style="width: 100%; height: 80dvh;">
+          <div class="container-fluid py-5" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h1 class="display-5 fw-bold"style="border-radius: 1rem; padding: 20px;background-color: white; border-radius: 1rem; border: 2px solid rgba(var(--bs-primary-rgb), 75%);box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Painel de Controle</h1>
+            <div class="row align-items-md-stretch" >
+              <div style="width: max-content;">
+                <div class="h-100 p-5 rounded-3" style="background-color: white; border-radius: 1rem; border: 2px solid rgba(var(--bs-primary-rgb), 75%);box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                   <h1>Meu Perfil</h1>
                   
-                  <h4 style="display: flex;">Usuário: <div id="user" style="margin-left: 10px;">
+                  <h4 style="display: flex; background-color: rgba(var(--bs-primary-rgb), 15%); padding: 10px; border-radius: 1rem; border: 2px solid rgba(var(--bs-primary-rgb), 15%);">Usuário: <div id="user" style="margin-left: 10px;">
                     <button class="btn" type="button" disabled="">
                       <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                       <span class="visually-hidden" role="status">Loading...</span>
                       </button>
                   </div></h4>
-                  <h4 style="display: flex;">Email: <div id="email" style="margin-left: 10px;">
+                  <h4 style="display: flex; background-color: rgba(var(--bs-primary-rgb), 15%); padding: 10px; border-radius: 1rem; border: 2px solid rgba(var(--bs-primary-rgb), 15%);">Email: <div id="email" style="margin-left: 10px;">
                     <button class="btn" type="button" disabled="">
                       <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                       <span class="visually-hidden" role="status">Loading...</span>
                       </button>
                   </div></h4>
-                  <h4 style="display: flex;">Senha: <div id="password" style="margin-left: 10px;">
+                  <h4 style="display: flex; background-color: rgba(var(--bs-primary-rgb), 15%); padding: 10px; border-radius: 1rem; border: 2px solid rgba(var(--bs-primary-rgb), 15%);">Senha: <div id="password" style="margin-left: 10px;">
                     <button class="btn" type="button" disabled="">
                     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                     <span class="visually-hidden" role="status">Loading...</span>
                     </button>
                   </div>
                   <div style="margin-left: 10px;">
-                    <button class="btn btn-outline-primary rounded-circle p-2 lh-1" type="button" id="showPassword" onclick="showPassword()">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-dark rounded-circle p-2 lh-1" type="button" id="showPassword" onclick="showPassword()">
+                      <svg xmlns="http://www.w3.org/2000/svg" weight="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                         <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
                         <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
                       </svg>
@@ -118,15 +118,7 @@
                   </div>
                   </h4>
 
-                  <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#editUser" onclick="storeId()"> Editar Perfil</button>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-                  <h2>Minhas Aulas</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, earum facilis natus impedit excepturi voluptatum expedita delectus fugit nobis a id, laboriosam labore aliquam culpa? Dolor maiores eos iste accusamus.</p>
-                  <button class="btn btn-outline-secondary" type="button"></button>
+                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUser" onclick="storeId()"> Editar Perfil</button>
                 </div>
               </div>
             </div>
@@ -136,12 +128,12 @@
       </div>
 
       
-      <footer class="footer mt-auto py-3 my-4" style="background-color: rgba(var(--bs-primary-rgb), 75%); color: white;">
-            <ul class="nav justify-content-center pb-3 mb-3">
-              <li class="nav-item"><a href="index.html" class="nav-link px-2" style="color: white;">Home</a></li>
-              <li class="nav-item"><a href="sobre.html" class="nav-link px-2" style="color: white;">Sobre</a></li>
-            </ul>
-            <p class="text-center">© 2024 ProjetoAlfa</p>
+      <footer class="footer mt-auto py-3" style="background-color: rgba(var(--bs-primary-rgb), 75%); color: white;">
+        <ul class="nav justify-content-center pb-3 mb-3">
+          <li class="nav-item"><a href="index.html" class="nav-link px-2" style="color: white;">Home</a></li>
+          <li class="nav-item"><a href="sobre.html" class="nav-link px-2" style="color: white;">Sobre</a></li>
+        </ul>
+        <p class="text-center">© 2024 ProjetoAlfa</p>
       </footer>
 
       <div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">

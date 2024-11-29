@@ -20,7 +20,7 @@ public class AulaService {
         int moduloAula = Integer.parseInt(request.queryParams("addAulaId"));
         Boolean checkAula = false;
         
-        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
+        response.redirect("http://localhost:5500/projeto-alfa/src/resources/adm.html");
 
         return AulaDAO.add(aulaLink, aulaName, moduloAula, checkAula);
 
@@ -31,10 +31,10 @@ public class AulaService {
         int idAula = Integer.parseInt(request.queryParams("deleteIdAula"));
         
 /* 
-        if (request.url() == "http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html") {
-            response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/adm.html");
+        if (request.url() == "http://localhost:5500/projeto-alfa/src/resources/adm.html") {
+            response.redirect("http://localhost:5500/projeto-alfa/src/resources/adm.html");
         } else {
-            response.redirect("http://127.0.0.1:5500/projeto-alfa/src/resources/perfil.html");
+            response.redirect("http://localhost:5500/projeto-alfa/src/resources/perfil.html");
         }
 */
 
@@ -59,7 +59,7 @@ public class AulaService {
             
         AulaDAO.update(id, numAula, name, linkYoutube);
 
-        response.redirect("https://projeto-alfa.netlify.app/src/resources/adm.html");
+        response.redirect("http://localhost:5500/projeto-alfa/src/resources/adm.html");
 
         return "";
 
