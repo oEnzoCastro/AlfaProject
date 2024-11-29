@@ -45,7 +45,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
+							<mainClass>com.example.App</mainClass>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 						</manifest>
 					</archive>
@@ -84,7 +84,6 @@
 	
 
 		<dependencies>
-		
 
 			<dependency>
 				<groupId>org.slf4j</groupId>
